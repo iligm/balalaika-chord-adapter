@@ -1,5 +1,7 @@
 let originalChordsText = "";
 const noteOrder = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g;
+const chordRegexWithNC = /((?:[Nn]\.[Cc]\.))|([A-H][b#]?)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g;
 let scrollInterval = null;
 let currentFontSize = 16;
 let transposeOffset = 0;
@@ -13,16 +15,15 @@ function transposeNote(note, semitones) {
 function transposeChords(semitones) {
   if (!originalChordsText) return;
 
-  let transposed = originalChordsText.replace(/([A-H][b#]?)(m?(?:add|sus|dim|aug|#|°)?\d*\/?\d*)?/g, (match, note, suffix) => {
+  let transposed = originalChordsText.replace(chordRegexWithNC, (match, nc, note, suffix, ending) => {
+    if(nc) return nc;
     const base = note;
     const transposedNote = transposeNote(base, semitones);
-    return transposedNote + (suffix || '');
+    return transposedNote + (suffix || '') + (ending || '');
   });
 
   document.getElementById('chords-text').innerHTML = transposed;
-
-  const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aug|#|°)?\d*\/?\d*)?/g;
-  let chordsFound = Array.from(transposed.matchAll(chordRegex), m => m[0]);
+  let chordsFound = Array.from(transposed.matchAll(chordRegexWithNC), m => m[2] + (m[3] || ''));
   const uniqueChords = [...new Set(chordsFound)];
   const chordsList = document.getElementById('chords-list');
   chordsList.innerHTML = '';
@@ -93,27 +94,32 @@ function handleScrollSpeedChange() {
   }
 }
 
-let isEuropeanNotation = true;
 
 function convertToAmerican(chordsText) {
   return chordsText.replace(/\b(B)(m?\d*)\b/g, 'A#$2').replace(/\b(H)(m?\d*)\b/g, 'B$2');
 }
 
 function convertToEuropean(chordsText) {
-  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2').replace(/\b(A#)(m?\d*)\b/g, 'B$2');
+  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2');
 }
+
+let NotationInit = false;
 
 function toggleNotation() {
   let chordsText = document.getElementById('chords-text').innerHTML;
+  let chordsFound = [];
+  if (chordsText) {
+    chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || ''));
+  }
+  const uniqueChords = [...new Set(chordsFound)];
 
-  const hasEuropeanH = chordsText.includes("H");
-  const hasAmericanB = chordsText.includes("B") && !hasEuropeanH;
-  
-  document.getElementById('notationBtn').textContent = hasAmericanB ? 'Европейская' : !hasEuropeanH ? 'Не влияет' : 'Американская';
-
-  let text = hasAmericanB ? convertToEuropean(chordsText) : convertToAmerican(chordsText);
-
+  const hasEuropeanH = uniqueChords.includes("H");
+  const hasAmericanB = uniqueChords.includes("B");
+    
+  let text = hasAmericanB && !hasEuropeanH? convertToEuropean(chordsText) : convertToAmerican(chordsText);
   document.getElementById('chords-text').innerHTML = text;
+  document.getElementById('notationBtn').textContent = hasEuropeanH ? 'Американская' : !hasAmericanB ? 'Не влияет' : 'Европейская';
+
 }
 
 async function parseAmdm() {
@@ -126,13 +132,13 @@ async function parseAmdm() {
     return;
   }
 
-  const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+  const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
 
   try {
     const response = await fetch(proxyUrl);
-    const data = await response.json();
+    const html = await response.text();
     const parser = new DOMParser();
-    const doc = parser.parseFromString(data.contents, 'text/html');
+    const doc = parser.parseFromString(html, 'text/html');
 
     const chordsTextElement = doc.querySelector('pre.field__podbor_new');
     let chordsText = chordsTextElement ? chordsTextElement.textContent : "Не найден";
@@ -140,16 +146,14 @@ async function parseAmdm() {
     chordsText = chordsText.replace(/(\[.*\]:)/g, `$1\n`);
     chordsText = chordsText.replace(/(\/\*\ ?([\s\S]*?)\*\/)/g, `<span class="inchords-comment">$2</span>\n`);
 
-
-    const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aug|#|°)?\d*\/?\d*)?/g;
-    chordsText = chordsText.replace(chordRegex, '<span class="chord">$1$2</span>');
+    chordsText = chordsText.replace(chordRegexWithNC, '<span class="chord">$1$2$3</span>$4');
 
     originalChordsText = chordsText;
     document.getElementById('chords-text').innerHTML = chordsText;
     
     let chordsFound = [];
     if (chordsText) {
-      chordsFound = Array.from(chordsText.matchAll(chordRegex), m => m[0]);
+      chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || ''));
     }
     const uniqueChords = [...new Set(chordsFound)];
     const chordsList = document.getElementById('chords-list');

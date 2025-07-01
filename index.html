@@ -45,7 +45,7 @@
     <div class="control-group">
       <span class="title">Автопрокрутка</span>
       <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
-        <select id="scrollSpeed" style="font-size: 1rem; padding: 6px; height: 2vw;" onchange="handleScrollSpeedChange()">
+        <select id="scrollSpeed" style="font-size: 1rem; padding: 6px; height: 2.25rem;" onchange="handleScrollSpeedChange()">
           <option value="400">Медленно</option>
           <option value="200" selected>Средне</option>
           <option value="100">Быстро</option>
@@ -58,7 +58,7 @@
 
 <!-- Основной вывод -->
 <div class="output">
-  <div class="column">
+  <div class="column" id="col1">
     <h2>Текст подбора</h2>
     <pre id="chords-text" style="font-size: 16px;">Введите ссылку выше...</pre>
   </div>

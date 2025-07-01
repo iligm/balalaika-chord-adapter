@@ -4,22 +4,6 @@ let scrollInterval = null;
 let currentFontSize = 16;
 let transposeOffset = 0;
 
-function convertToEuropeanNotation(chordsText) {
-  // Проверяем, есть ли "H" в тексте
-  const hasEuropeanH = chordsText.includes("H");
-  // Есть ли "B", но нет "H"
-  const hasAmericanB = chordsText.includes("B") && !hasEuropeanH;
-
-  if (hasAmericanB) {
-      // Это американская система → конвертируем B → H
-      return chordsText
-          .replace(/\bB(?![a-z0-9#])/g, 'H') // Меняем только "B", где это не часть других слов
-          .replace(/\bH(?![a-z0-9#])/g, 'B'); // На всякий случай, если попалась "H" в американском тексте
-  }
-
-  // Иначе считаем, что это уже европейская система
-  return chordsText;
-}
 function transposeNote(note, semitones) {
   const index = noteOrder.indexOf(note);
   if (index === -1) return note;
@@ -37,7 +21,7 @@ function transposeChords(semitones) {
 
   document.getElementById('chords-text').innerHTML = transposed;
 
-  const chordRegex = /\b[A-H][b#]?m?(aj\d+|add\d+|sus\d+|dim|aug|°)?\d?\/?\d?\b/g;
+  const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aug|#|°)?\d*\/?\d*)?/g;
   let chordsFound = Array.from(transposed.matchAll(chordRegex), m => m[0]);
   const uniqueChords = [...new Set(chordsFound)];
   const chordsList = document.getElementById('chords-list');
@@ -112,19 +96,22 @@ function handleScrollSpeedChange() {
 let isEuropeanNotation = true;
 
 function convertToAmerican(chordsText) {
-  return chordsText.replace(/\b(H)(m?\d*)\b/g, 'B$2');
+  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'A#$2').replace(/\b(H)(m?\d*)\b/g, 'B$2');
 }
 
 function convertToEuropean(chordsText) {
-  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2');
+  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2').replace(/\b(A#)(m?\d*)\b/g, 'B$2');
 }
 
 function toggleNotation() {
-  isEuropeanNotation = !isEuropeanNotation;
-  document.getElementById('notationBtn').textContent = isEuropeanNotation ? 'Система: Европейская' : 'Система: Американская';
+  let chordsText = document.getElementById('chords-text').innerHTML;
 
-  let text = isEuropeanNotation ? originalChordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2') :
-                                    originalChordsText.replace(/\b(H)(m?\d*)\b/g, 'B$2');
+  const hasEuropeanH = chordsText.includes("H");
+  const hasAmericanB = chordsText.includes("B") && !hasEuropeanH;
+  
+  document.getElementById('notationBtn').textContent = hasAmericanB ? 'Европейская' : !hasEuropeanH ? 'Не влияет' : 'Американская';
+
+  let text = hasAmericanB ? convertToEuropean(chordsText) : convertToAmerican(chordsText);
 
   document.getElementById('chords-text').innerHTML = text;
 }
@@ -149,23 +136,13 @@ async function parseAmdm() {
 
     const chordsTextElement = doc.querySelector('pre.field__podbor_new');
     let chordsText = chordsTextElement ? chordsTextElement.textContent : "Не найден";
-    document.getElementById('chords-text').textContent = chordsText;
-
-
-    // Определяем систему нотации
-    const hasEuropeanH = chordsText.includes("H");
-    const hasAmericanB = chordsText.includes("B") && !hasEuropeanH;
-
-    if (!hasAmericanB) {
-      chordsText = convertToAmerican(chordsText); // B → H
-      isEuropeanNotation = false;
-      document.getElementById('notationBtn').textContent = 'Система: Американская';
-    }
     
-    chordsText = chordsText.replace(/\[.*\]:/gi, `$&\n`);
+    chordsText = chordsText.replace(/(\[.*\]:)/g, `$1\n`);
+    chordsText = chordsText.replace(/(\/\*\ ?([\s\S]*?)\*\/)/g, `<span class="inchords-comment">$2</span>\n`);
 
-    const chordRegex = /\b([A-H][b#]?m?(?:aj\d+|add\d+|sus\d+|dim|aug|°)?\d?\/?\d?)\b/g;
-    chordsText = chordsText.replace(chordRegex, '<span class="chord">$1</span>');
+
+    const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aug|#|°)?\d*\/?\d*)?/g;
+    chordsText = chordsText.replace(chordRegex, '<span class="chord">$1$2</span>');
 
     originalChordsText = chordsText;
     document.getElementById('chords-text').innerHTML = chordsText;

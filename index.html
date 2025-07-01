@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Парсер Amdm.ru</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Парсер аккордов с Amdm.ru</h1>
+
+<div class="input-container">
+  <input type="text" id="urlInput" placeholder="https://amdm.ru/akkordi/исполнитель/номер/название/" />
+  <button onclick="parseAmdm()">Парсить подбор</button>
+</div>
+
+<!-- Управление -->
+<div class="controls">
+  <!-- Заголовки -->
+  <div class="control-row">
+    <!-- Тональность -->
+    <div class="control-group">
+      <span class="title">Тональность</span>
+      <div style="display: flex; align-items: center; gap: 4px;">
+        <button class="control-btn" onclick="changeTranspose(-1)">-</button>
+        <span id="transposeDisplay" class="value-display">0</span>
+        <button class="control-btn" onclick="changeTranspose(1)">+</button>
+      </div>
+    </div>
+    <!-- Размер текста -->
+    <div class="control-group">
+      <span class="title">Размер</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+        <button class="control-btn" onclick="changeFontSize(-1)">-</button>
+        <span id="fontSizeDisplay" class="value-display">16</span>
+        <button class="control-btn" onclick="changeFontSize(1)">+</button>
+      </div>
+    </div>
+    <!-- Система нотации -->
+    <div class="control-group">    
+      <span class="title">Нотация</span>
+      <button onclick="toggleNotation()" id="notationBtn">Система: Американская</button>
+    </div>
+    <!-- Автоперемотка -->
+    <div class="control-group">
+      <span class="title">Автопрокрутка</span>
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
+        <select id="scrollSpeed" style="font-size: 1rem; padding: 6px; height: 2vw;" onchange="handleScrollSpeedChange()">
+          <option value="400">Медленно</option>
+          <option value="200" selected>Средне</option>
+          <option value="100">Быстро</option>
+        </select>
+        <button class="control-btn" onclick="toggleAutoScroll()" id="playPauseBtn">▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Основной вывод -->
+<div class="output">
+  <div class="column">
+    <h2>Текст подбора</h2>
+    <pre id="chords-text" style="font-size: 16px;">Введите ссылку выше...</pre>
+  </div>
+
+  <div class="column">
+    <h2>Информация</h2>
+    <ul>
+      <li><strong>Автор:</strong> <a id="author-link" href="#" target="_blank">Не найден</a></li>
+      <li><strong>Просмотры:</strong> <span id="views">-</span></li>
+      <li><strong>В избранном:</strong> <span id="stars">-</span></li>
+      <li><strong>Дата публикации:</strong> <span id="date">-</span></li>
+      <li><strong>Исполнитель:</strong> <span id="artist">-</span></li>
+      <li><strong>Песня:</strong> <span id="song-title">-</span></li>
+      <li><strong>Аккорды:</strong></li>
+      <ul id="chords-list"></ul>
+    </ul>
+  </div>
+</div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

@@ -346,12 +346,13 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
   // Determine needed frets and whether to hide zero fret
   const allPressedFrets = pressedFrets.filter(f => f !== null && f !== 0);
   let minFretToShow = 1;
+  let neededFrets = 3;
 
   if (allPressedFrets.length > 0) {
     const maxPressedFret = Math.max(...allPressedFrets);
     const minPressedFret = Math.min(...allPressedFrets.filter((x) => x != 0));
-  neededFrets = maxPressedFret - minPressedFret + 3 + (maxPressedFret == minPressedFret);
-  minFretToShow = Math.max(minPressedFret - 1, 1);
+    neededFrets = maxPressedFret - minPressedFret + 3 + (maxPressedFret == minPressedFret);
+    minFretToShow = Math.max(minPressedFret - 1, 1);
   }
 
   // Calculate total width
@@ -425,12 +426,12 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
     ctx.lineTo(fretPositions[fretPositions.length - 1], y);
     ctx.stroke();
 
-    const openNote = tuning[s];
+    const openNote = tuning[tuning.length - s - 1];
 
     for (let f = 0; f < fretPositions.length; f++) {
       const globalFretNumber = f + minFretToShow;
       const x = (fretPositions[f] + (fretPositions[f + 1] || fretPositions[f])) / 2;
-      const pressedFret = pressedFrets[s];
+      const pressedFret = pressedFrets[tuning.length - s - 1];
 
       if (pressedFret === globalFretNumber && pressedFret != 0) {
         ctx.beginPath(); ctx.arc(x, y, 4, 0, 2 * Math.PI); ctx.fillStyle = "#4a90e2"; ctx.fill(); ctx.fillStyle = "black";

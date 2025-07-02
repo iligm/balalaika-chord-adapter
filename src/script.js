@@ -19,7 +19,7 @@ function transposeNote(note, semitones) {
   return noteOrder[(index + semitones + 12) % 12];
 }
 
-function transposeChords(semitones) {
+async function transposeChords(semitones) {
   if (!originalChordsText) return;
 
   let transposed = originalChordsText.replace(chordRegexWithNC, (match, nc, note, suffix, ending) => {
@@ -30,18 +30,27 @@ function transposeChords(semitones) {
   });
 
   document.getElementById('chords-text').innerHTML = transposed;
-  let chordsFound = Array.from(transposed.matchAll(chordRegexWithNC), m => m[2] + (m[3] || ''));
-  const uniqueChords = [...new Set(chordsFound)];
-  const chordsList = document.getElementById('chords-list');
-  chordsList.innerHTML = '';
-  if (uniqueChords.length > 0) {
-    uniqueChords.forEach(chord => {
-      const li = document.createElement('li');
-      li.textContent = chord;
-      chordsList.appendChild(li);
-    });
-  } else {
-    chordsList.innerHTML = '<li>Аккорды не найдены</li>';
+  let chordsFound = [];
+    if (transposed) {
+      chordsFound = Array.from(transposed.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || '')).filter((x) => x.trim() != '');
+    }
+    const chordsL = [
+      await (await fetch("src/chords_ceg.json")).json()
+    ];
+
+    const uniqueChords = [...new Set(chordsFound)];
+    const chordsList = document.getElementById('chords-list');
+    chordsList.innerHTML = '';
+    if (uniqueChords.length > 0) {
+      
+      uniqueChords.forEach(chord => {
+        const li = document.createElement('li');
+        var canvas = document.createElement('canvas');
+        li.appendChild(canvas);
+        chordsList.appendChild(li);
+        var ctx = canvas.getContext('2d');
+        drawFretboardOnCanvas(ctx, chordsL[0].tuning, getChord(chordsL[0], chord)[0], "balalaika", chord);
+      });
   }
 }
 
@@ -103,30 +112,59 @@ function handleScrollSpeedChange() {
 
 
 function convertToAmerican(chordsText) {
-  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'A#$2').replace(/\b(H)(m?\d*)\b/g, 'B$2');
+  return chordsText.replace(/(B)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g, 'A#$2$3').replace(/\b(H)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g, 'B$2$3');
 }
 
 function convertToEuropean(chordsText) {
-  return chordsText.replace(/\b(B)(m?\d*)\b/g, 'H$2');
+  return chordsText.replace(/\b(B)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g, 'H$2$3').replace(/(A#)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g, 'B$2$3');
 }
 
 let NotationInit = false;
 
-function toggleNotation() {
+async function toggleNotation() {
   let chordsText = document.getElementById('chords-text').innerHTML;
   let chordsFound = [];
   if (chordsText) {
-    chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || ''));
+    chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || '')).filter((x) => x.trim() != '');
   }
-  const uniqueChords = [...new Set(chordsFound)];
+  let uniqueChords = [...new Set(chordsFound)];
 
-  const hasEuropeanH = uniqueChords.includes("H");
-  const hasAmericanB = uniqueChords.includes("B");
+  let hasEuropeanH = uniqueChords.includes("H");
+  let hasAmericanB = uniqueChords.includes("B");
     
-  let text = hasAmericanB && !hasEuropeanH? convertToEuropean(chordsText) : convertToAmerican(chordsText);
+  let text = hasAmericanB && !hasEuropeanH ? convertToEuropean(chordsText) : convertToAmerican(chordsText);
   document.getElementById('chords-text').innerHTML = text;
-  document.getElementById('notationBtn').textContent = hasEuropeanH ? 'Американская' : !hasAmericanB ? 'Не влияет' : 'Европейская';
+  
+  chordsFound = [];
+  if (chordsText) {
+    chordsFound = Array.from(text.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || '')).filter((x) => x.trim() != '');
+  }
 
+  uniqueChords = [...new Set(chordsFound)];
+
+  hasEuropeanH = uniqueChords.includes("H");
+  hasAmericanB = uniqueChords.includes("B");
+
+  document.getElementById('notationBtn').textContent = !hasEuropeanH ? 'Американская' : hasAmericanB ? 'Не влияет' : 'Европейская';
+
+  const chordsL = [
+    await (await fetch("src/chords_ceg.json")).json()
+  ];
+
+  const chordsList = document.getElementById('chords-list');
+    chordsList.innerHTML = '';
+    if (uniqueChords.length > 0) {
+      
+      uniqueChords.forEach(chord => {
+        const li = document.createElement('li');
+        var canvas = document.createElement('canvas');
+        li.appendChild(canvas);
+        chordsList.appendChild(li);
+        var ctx = canvas.getContext('2d');
+        drawFretboardOnCanvas(ctx, chordsL[0].tuning, getChord(chordsL[0], chord, hasEuropeanH)[0], "balalaika", chord);
+      });
+
+  }
 }
 
 async function parseAmdm() {
@@ -160,7 +198,7 @@ async function parseAmdm() {
     
     let chordsFound = [];
     if (chordsText) {
-      chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || ''));
+      chordsFound = Array.from(chordsText.matchAll(chordRegexWithNC), m => (m[2] || '') + (m[3] || '')).filter((x) => x.trim() != '');
     }
     const chordsL = [
       await (await fetch("src/chords_ceg.json")).json()
@@ -177,8 +215,7 @@ async function parseAmdm() {
         li.appendChild(canvas);
         chordsList.appendChild(li);
         var ctx = canvas.getContext('2d');
-        console.log(chordsL[0]);
-        drawFretboardOnCanvas(ctx, chordsL[0].tuning, chordsL[0].chords[chord][0], "balalaika", chord);
+        drawFretboardOnCanvas(ctx, chordsL[0].tuning, getChord(chordsL[0], chord)[0], "balalaika", chord);
       });
     } else {
       chordsList.innerHTML = '<li>Аккорды не найдены</li>';
@@ -230,7 +267,70 @@ async function parseAmdm() {
   }
 }
 
+function getChord(chordData, chordName, useGermanNotation = false) {
+  const germanNoteMap = {
+    'Cis': 'C#', 'Des': 'Db', 'Ces': 'B',
+    'Dis': 'D#', 'Es': 'Eb', 'Ees': 'Eb',
+    'Fes': 'Eb', 'Fis': 'F#',
+    'Gis': 'G#', 'Ges': 'Gb',
+    'Ais': 'A#', 'As': 'Ab',
+    'Bes': 'Bb', 'B': 'Bb', 'H': 'B'
+  };
 
+  const enharmonicMap = {
+    "Cb": "B", "C#": "Db", "Db": "C#", "D#": "Eb", "Eb": "D#",
+    "E#": "F", "Fb": "E", "F#": "Gb", "Gb": "F#", "G#": "Ab",
+    "Ab": "G#", "A#": "Bb", "B#": "C"
+  };
+
+  let normalizedChordName = chordName;
+
+  // Step 1: Convert German root note if enabled
+  if (useGermanNotation) {
+    const germanRootRegex = /^(Cis|Des|Ces|Dis|Es|Ees|Fes|Fis|Gis|Ges|Ais|As|Bes|B|H)/;
+    const match = chordName.match(germanRootRegex);
+    if (match) {
+      const germanNote = match[1];
+      const internationalNote = germanNoteMap[germanNote];
+      if (internationalNote) {
+        normalizedChordName = internationalNote + chordName.slice(germanNote.length);
+      }
+    }
+  }
+
+  // Step 2: Extract base note and normalize using enharmonics
+  const baseMatch = normalizedChordName.match(/^([A-G][b#]?)/);
+  if (!baseMatch) throw new Error(`Invalid chord name: ${chordName}`);
+  const baseNote = baseMatch[1];
+  const normalizedBase = enharmonicMap[baseNote] || baseNote;
+
+  const suffix = normalizedChordName.slice(baseNote.length);
+  const fullyNormalizedChordName = normalizedBase + suffix;
+
+  // Step 3: Try exact match
+  if (chordData.chords[fullyNormalizedChordName]) {
+    return chordData.chords[fullyNormalizedChordName];
+  }
+
+  // Optional: Try fallbacks if needed
+  if (suffix) {
+    const simpleChord = normalizedBase + (suffix.startsWith('m') ? 'm' : '');
+    if (chordData.chords[simpleChord]) {
+      console.warn(`Chord "${fullyNormalizedChordName}" not found. Falling back to "${simpleChord}".`);
+      return chordData.chords[simpleChord];
+    }
+  }
+
+  // Final fallback to basic major/minor
+  if (chordData.chords[normalizedBase]) {
+    console.warn(`Chord "${fullyNormalizedChordName}" not found. Falling back to "${normalizedBase}".`);
+    return chordData.chords[normalizedBase];
+  }
+
+  throw new Error(
+    `Chord "${chordName}" (normalized to "${fullyNormalizedChordName}") not found in tuning ${chordData.tuning.join(' ')}`
+  );
+}
 
 function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guitar', chordName) {
   const FRET_DISTANCE_RATIO = Math.pow(2, 1 / 12);
@@ -245,7 +345,7 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
 
   // Determine needed frets and whether to hide zero fret
   const allPressedFrets = pressedFrets.filter(f => f !== null && f !== 0);
-  let minFretToShow = 0;
+  let minFretToShow = 1;
 
   if (allPressedFrets.length > 0) {
     const maxPressedFret = Math.max(...allPressedFrets);
@@ -260,11 +360,8 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
   for (let i = 0; i < neededFrets; i++) {
     currentX += FIRST_FRET_WIDTH / Math.pow(FRET_DISTANCE_RATIO, i);
   }
-
   calculatedWidth = 100;
-
   FIRST_FRET_WIDTH *= (calculatedWidth - FRETS_START_X * 2) / (currentX - FRETS_START_X * 2);
-  console.log(FIRST_FRET_WIDTH);
 
   const CANVAS_HEIGHT = tuning.length * STRING_SPACING + 30;
   ctx.canvas.width = calculatedWidth;
@@ -287,14 +384,9 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
     pos += interval;
     dotPositions.push(pos);
   }
-for (let interval of dotSpacing) {
-    pos += interval;
-    dotPositions.push(pos);
-  }
-
 
   ctx.fillStyle = "#555";
-  for (let f = 1; f < fretPositions.length - 1; f++) {
+  for (let f = 0; f < fretPositions.length - 1; f++) {
     const globalFretNumber = f + minFretToShow;
     if (dotPositions.includes(globalFretNumber)) {
       const centerX = (fretPositions[f] + fretPositions[f + 1]) / 2;

@@ -145,7 +145,7 @@ async function toggleNotation() {
   hasEuropeanH = uniqueChords.includes("H");
   hasAmericanB = uniqueChords.includes("B");
 
-  document.getElementById('notationBtn').textContent = !hasEuropeanH ? 'Американская' : hasAmericanB ? 'Не влияет' : 'Европейская';
+  document.getElementById('notationBtn').textContent = !hasEuropeanH ? 'Американская' : !hasAmericanB ? 'Не влияет' : 'Европейская';
 
   const chordsL = [
     await (await fetch("src/chords_ceg.json")).json()

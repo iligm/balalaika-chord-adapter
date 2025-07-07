@@ -1,3 +1,481 @@
+==============================
+📁 Directory Tree of: "src/"
+==============================
+
+├── chords_ceg.json
+├── script.js
+├── style.css
+├── index.html
+
+
+==============================
+📂 Dumping file contents...
+==============================
+
+==============================
+📄 File: chords_ceg.json
+------------------------------
+{
+  "name": "Balalaika C-E-G",
+  "tuning": ["C", "E", "G"],
+  "chords": {
+    "C": [
+      [0, 0, 0],
+      [4, 3, 5],
+      [7, 8, 9],
+      [0, 3, 9],
+      [4, 8, 0],
+      [7, 0, 5]
+    ],
+    "Cm": [
+      [3, 3, 5],
+      [7, 8, 8],
+      [0, 3, 8],
+      [0, 11, 0],
+      [3, 8, 0],
+      [7, 11, 5]
+    ],
+    "C7": [
+      [0, 0, 3],
+      [4, 6, 5],
+      [10, 8, 9],
+      [0, 6, 9],
+      [4, 8, 3],
+      [10, 0, 5]
+    ],
+    "Cm7": [
+      [3, 6, 5],
+      [10, 8, 8],
+      [0, 6, 8],
+      [0, 11, 3],
+      [3, 8, 3],
+      [10, 11, 5]
+    ],
+    "Cb": [
+      [3, 2, 4],
+      [6, 7, 8],
+      [11, 11, 11],
+      [3, 7, 11],
+      [6, 11, 4],
+      [11, 2, 8]
+    ],
+    "Cbm": [
+      [2, 2, 4],
+      [6, 7, 7],
+      [11, 10, 11],
+      [2, 7, 11],
+      [6, 10, 4],
+      [11, 2, 7]
+    ],
+    "Cb7": [
+      [3, 5, 4],
+      [9, 7, 8],
+      [3, 7, 2],
+      [9, 11, 4],
+      [11, 5, 8],
+      [11, 11, 2]
+    ],
+    "Cbm7": [
+      [2, 5, 4],
+      [9, 7, 7],
+      [2, 7, 2],
+      [9, 10, 4],
+      [11, 5, 7],
+      [11, 10, 2]
+    ],
+    "D": [
+      [2, 2, 2],
+      [6, 5, 7],
+      [9, 10, 11],
+      [2, 5, 11],
+      [6, 10, 2],
+      [9, 2, 7]
+    ],
+    "Dm": [
+      [2, 1, 2],
+      [5, 5, 7],
+      [9, 10, 10],
+      [2, 5, 10],
+      [5, 10, 2],
+      [9, 1, 7]
+    ],
+    "D7": [
+      [2, 2, 5],
+      [6, 8, 7],
+      [0, 2, 7],
+      [0, 10, 11],
+      [2, 8, 11],
+      [6, 10, 5]
+    ],
+    "Dm7": [
+      [5, 8, 7],
+      [0, 1, 7],
+      [0, 10, 10],
+      [2, 1, 5],
+      [2, 8, 10],
+      [5, 10, 5]
+    ],
+    "Db": [
+      [1, 1, 1],
+      [5, 4, 6],
+      [8, 9, 10],
+      [1, 4, 10],
+      [5, 9, 1],
+      [8, 1, 6]
+    ],
+    "Dbm": [
+      [1, 0, 1],
+      [4, 4, 6],
+      [8, 9, 9],
+      [1, 4, 9],
+      [4, 9, 1],
+      [8, 0, 6]
+    ],
+    "Db7": [
+      [1, 1, 4],
+      [5, 7, 6],
+      [11, 9, 10],
+      [1, 7, 10],
+      [5, 9, 4],
+      [11, 1, 6]
+    ],
+    "Dbm7": [
+      [4, 7, 6],
+      [11, 9, 9],
+      [1, 0, 4],
+      [1, 7, 9],
+      [4, 9, 4],
+      [11, 0, 6]
+    ],
+    "E": [
+      [4, 4, 4],
+      [8, 7, 9],
+      [4, 7, 1],
+      [8, 0, 4],
+      [11, 0, 1],
+      [11, 4, 9]
+    ],
+    "Em": [
+      [4, 3, 4],
+      [7, 7, 9],
+      [4, 7, 0],
+      [7, 0, 4],
+      [11, 0, 0],
+      [11, 3, 9]
+    ],
+    "E7": [
+      [2, 0, 1],
+      [4, 4, 7],
+      [8, 10, 9],
+      [2, 4, 9],
+      [4, 10, 1],
+      [8, 0, 7]
+    ],
+    "Em7": [
+      [2, 0, 0],
+      [7, 10, 9],
+      [2, 3, 9],
+      [4, 3, 7],
+      [4, 10, 0],
+      [7, 0, 7]
+    ],
+    "Eb": [
+      [3, 3, 3],
+      [7, 6, 8],
+      [3, 6, 0],
+      [7, 11, 3],
+      [10, 3, 8],
+      [10, 11, 0]
+    ],
+    "Ebm": [
+      [3, 2, 3],
+      [6, 6, 8],
+      [10, 11, 11],
+      [3, 6, 11],
+      [6, 11, 3],
+      [10, 2, 8]
+    ],
+    "Eb7": [
+      [3, 3, 6],
+      [7, 9, 8],
+      [1, 3, 8],
+      [1, 11, 0],
+      [3, 9, 0],
+      [7, 11, 6]
+    ],
+    "Ebm7": [
+      [6, 9, 8],
+      [1, 2, 8],
+      [1, 11, 11],
+      [3, 2, 6],
+      [3, 9, 11],
+      [6, 11, 6]
+    ],
+    "F": [
+      [0, 1, 2],
+      [5, 5, 5],
+      [9, 8, 10],
+      [0, 5, 10],
+      [5, 8, 2],
+      [9, 1, 5]
+    ],
+    "Fm": [
+      [0, 1, 1],
+      [5, 4, 5],
+      [8, 8, 10],
+      [0, 4, 10],
+      [5, 8, 1],
+      [8, 1, 5]
+    ],
+    "F7": [
+      [3, 1, 2],
+      [5, 5, 8],
+      [9, 11, 10],
+      [3, 5, 10],
+      [5, 11, 2],
+      [9, 1, 8]
+    ],
+    "Fm7": [
+      [3, 1, 1],
+      [8, 11, 10],
+      [3, 4, 10],
+      [5, 4, 8],
+      [5, 11, 1],
+      [8, 1, 8]
+    ],
+    "Fb": [
+      [4, 4, 4],
+      [8, 7, 9],
+      [4, 7, 1],
+      [8, 0, 4],
+      [11, 0, 1],
+      [11, 4, 9]
+    ],
+    "Fbm": [
+      [4, 3, 4],
+      [7, 7, 9],
+      [4, 7, 0],
+      [7, 0, 4],
+      [11, 0, 0],
+      [11, 3, 9]
+    ],
+    "Fb7": [
+      [2, 0, 1],
+      [4, 4, 7],
+      [8, 10, 9],
+      [2, 4, 9],
+      [4, 10, 1],
+      [8, 0, 7]
+    ],
+    "Fbm7": [
+      [2, 0, 0],
+      [7, 10, 9],
+      [2, 3, 9],
+      [4, 3, 7],
+      [4, 10, 0],
+      [7, 0, 7]
+    ],
+    "G": [
+      [2, 3, 4],
+      [7, 7, 7],
+      [2, 7, 0],
+      [7, 10, 4],
+      [11, 3, 7],
+      [11, 10, 0]
+    ],
+    "Gm": [
+      [2, 3, 3],
+      [7, 6, 7],
+      [2, 6, 0],
+      [7, 10, 3],
+      [10, 3, 7],
+      [10, 10, 0]
+    ],
+    "G7": [
+      [5, 3, 4],
+      [7, 7, 10],
+      [5, 7, 0],
+      [7, 1, 4],
+      [11, 1, 0],
+      [11, 3, 10]
+    ],
+    "Gm7": [
+      [5, 3, 3],
+      [5, 6, 0],
+      [7, 1, 3],
+      [7, 6, 10],
+      [10, 1, 0],
+      [10, 3, 10]
+    ],
+    "Gb": [
+      [1, 2, 3],
+      [6, 6, 6],
+      [10, 9, 11],
+      [1, 6, 11],
+      [6, 9, 3],
+      [10, 2, 6]
+    ],
+    "Gbm": [
+      [1, 2, 2],
+      [6, 5, 6],
+      [9, 9, 11],
+      [1, 5, 11],
+      [6, 9, 2],
+      [9, 2, 6]
+    ],
+    "Gb7": [
+      [4, 2, 3],
+      [6, 6, 9],
+      [4, 6, 11],
+      [6, 0, 3],
+      [10, 0, 11],
+      [10, 2, 9]
+    ],
+    "Gbm7": [
+      [4, 2, 2],
+      [4, 5, 11],
+      [6, 0, 2],
+      [6, 5, 9],
+      [9, 0, 11],
+      [9, 2, 9]
+    ],
+    "A": [
+      [1, 0, 2],
+      [4, 5, 6],
+      [9, 9, 9],
+      [1, 5, 9],
+      [4, 9, 2],
+      [9, 0, 6]
+    ],
+    "Am": [
+      [0, 0, 2],
+      [4, 5, 5],
+      [9, 8, 9],
+      [0, 5, 9],
+      [4, 8, 2],
+      [9, 0, 5]
+    ],
+    "A7": [
+      [1, 3, 2],
+      [7, 5, 6],
+      [1, 5, 0],
+      [7, 9, 2],
+      [9, 3, 6],
+      [9, 9, 0]
+    ],
+    "Am7": [
+      [0, 3, 2],
+      [7, 5, 5],
+      [0, 5, 0],
+      [7, 8, 2],
+      [9, 3, 5],
+      [9, 8, 0]
+    ],
+    "Ab": [
+      [3, 4, 5],
+      [8, 8, 8],
+      [0, 4, 8],
+      [0, 11, 1],
+      [3, 8, 1],
+      [8, 11, 5]
+    ],
+    "Abm": [
+      [3, 4, 4],
+      [8, 7, 8],
+      [3, 7, 1],
+      [8, 11, 4],
+      [11, 4, 8],
+      [11, 11, 1]
+    ],
+    "Ab7": [
+      [0, 2, 1],
+      [6, 4, 5],
+      [8, 8, 11],
+      [0, 4, 11],
+      [6, 8, 1],
+      [8, 2, 5]
+    ],
+    "Abm7": [
+      [6, 4, 4],
+      [6, 7, 1],
+      [8, 2, 4],
+      [8, 7, 11],
+      [11, 2, 1],
+      [11, 4, 11]
+    ],
+    "B": [
+      [3, 2, 4],
+      [6, 7, 8],
+      [11, 11, 11],
+      [3, 7, 11],
+      [6, 11, 4],
+      [11, 2, 8]
+    ],
+    "Bm": [
+      [2, 2, 4],
+      [6, 7, 7],
+      [11, 10, 11],
+      [2, 7, 11],
+      [6, 10, 4],
+      [11, 2, 7]
+    ],
+    "B7": [
+      [3, 5, 4],
+      [9, 7, 8],
+      [3, 7, 2],
+      [9, 11, 4],
+      [11, 5, 8],
+      [11, 11, 2]
+    ],
+    "Bm7": [
+      [2, 5, 4],
+      [9, 7, 7],
+      [2, 7, 2],
+      [9, 10, 4],
+      [11, 5, 7],
+      [11, 10, 2]
+    ],
+    "Bb": [
+      [2, 1, 3],
+      [5, 6, 7],
+      [10, 10, 10],
+      [2, 6, 10],
+      [5, 10, 3],
+      [10, 1, 7]
+    ],
+    "Bbm": [
+      [1, 1, 3],
+      [5, 6, 6],
+      [10, 9, 10],
+      [1, 6, 10],
+      [5, 9, 3],
+      [10, 1, 6]
+    ],
+    "Bb7": [
+      [2, 4, 3],
+      [8, 6, 7],
+      [2, 6, 1],
+      [8, 10, 3],
+      [10, 4, 7],
+      [10, 10, 1]
+    ],
+    "Bbm7": [
+      [1, 4, 3],
+      [8, 6, 6],
+      [1, 6, 1],
+      [8, 9, 3],
+      [10, 4, 6],
+      [10, 9, 1]
+    ]
+  }
+}
+------------------------------
+📄 End: chords_ceg.json
+==============================
+
+==============================
+📄 File: script.js
+------------------------------
 let originalChordsText = "";
 const noteOrder = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
 const chordRegex = /([A-H][b#]?)(m?(?:add|sus|dim|aj|aug|#|°|\+|\-)?\d*\-?\d*)?(\n?\W)/g;
@@ -451,3 +929,321 @@ function drawFretboardOnCanvas(ctx, tuning, pressedFrets, instrumentType = 'guit
 
   ctx.font = "10px Arial"; ctx.textAlign = "center"; ctx.fillText(chordName, calculatedWidth / 2, CANVAS_HEIGHT - 5);
 }
+------------------------------
+📄 End: script.js
+==============================
+
+==============================
+📄 File: style.css
+------------------------------
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.control-group span.title {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    height: 2.25rem;
+    transition: background-color 0.3s ease;
+}
+
+button.control-btn {
+    background-color: #4a90e2;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+button.control-btn:hover {
+    background-color: #357abd;
+}
+
+.value-display {
+    padding: 8px 12px;
+    font-size: 1rem;
+    text-align: center;
+    vertical-align: middle;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 40px;
+}
+
+.output {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    max-width: none;
+    justify-content: flex-end;
+}
+
+#col1 {
+    background-color: white;
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    flex: 1 1 0;
+    width: auto;
+    min-height: 500px;
+    overflow-y: auto;
+}
+
+#col2 {
+    min-width: 340px;
+}
+
+.column {
+    background-color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    flex: 0 1 auto;
+    overflow-y: auto;
+    margin-left: auto;
+}
+
+.column h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.chord {
+    color: #167ac6;
+    font-weight: bold;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgba(22, 122, 198, 0.1);
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.chord:hover {
+    background-color: rgba(22, 122, 198, 0.2);
+    cursor: pointer;
+}
+
+#chords-text {
+    font-family: monospace;
+    white-space: pre;         /* запрещаем переносы */
+    overflow-x: auto;         /* включаем горизонтальный скролл */
+    word-break: normal;       /* сбрасываем разбивку внутри слов */
+    hyphens: none;            /* отключаем дефисы */
+    min-width: 450px;
+    font-size: 20px;
+    padding: 0.2rem 0.3rem;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 0.4rem;
+}
+
+strong {
+    color: #555;
+}
+
+a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.inchords-comment {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 6px 14px;
+    background-color: #f1f1f1;
+    border-left: 5px solid #4a90e2;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #555;
+    border-radius: 4px;
+}
+
+@media (max-width: 1200px) {
+    .output {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+    #col1, #col2 {
+        min-width: 0;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+------------------------------
+📄 End: style.css
+==============================
+
+==============================
+📄 File: index.html
+------------------------------
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Парсер Amdm.ru</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Парсер аккордов с Amdm.ru</h1>
+
+<div class="input-container">
+  <input type="text" id="urlInput" placeholder="https://amdm.ru/akkordi/исполнитель/номер/название/" />
+  <button onclick="parseAmdm()">Парсить подбор</button>
+</div>
+
+<!-- Управление -->
+<div class="controls">
+  <!-- Заголовки -->
+  <div class="control-row">
+    <!-- Тональность -->
+    <div class="control-group">
+      <span class="title">Тональность</span>
+      <div style="display: flex; align-items: center; gap: 4px;">
+        <button class="control-btn" onclick="changeTranspose(-1)">-</button>
+        <span id="transposeDisplay" class="value-display">0</span>
+        <button class="control-btn" onclick="changeTranspose(1)">+</button>
+      </div>
+    </div>
+    <!-- Размер текста -->
+    <div class="control-group">
+      <span class="title">Размер</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+        <button class="control-btn" onclick="changeFontSize(-1)">-</button>
+        <span id="fontSizeDisplay" class="value-display">16</span>
+        <button class="control-btn" onclick="changeFontSize(1)">+</button>
+      </div>
+    </div>
+    <!-- Система нотации -->
+    <div class="control-group">    
+      <span class="title">Нотация</span>
+      <button onclick="toggleNotation()" id="notationBtn">По умолчанию</button>
+    </div>
+    <!-- Автоперемотка -->
+    <div class="control-group">
+      <span class="title">Автопрокрутка</span>
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 4px;">
+        <select id="scrollSpeed" style="font-size: 1rem; padding: 6px; height: 2.25rem;" onchange="handleScrollSpeedChange()">
+          <option value="400">Медленно</option>
+          <option value="200" selected>Средне</option>
+          <option value="100">Быстро</option>
+        </select>
+        <button class="control-btn" onclick="toggleAutoScroll()" id="playPauseBtn">▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Основной вывод -->
+<div class="output">
+  <div class="column" id="col1" style="min-width: 420px;">
+    <h2>Текст подбора</h2>
+    <pre id="chords-text" style="font-size: 16px;">Введите ссылку выше...</pre>
+  </div>
+
+  <div class="column" id="col2">
+    <h2>Информация</h2>
+    <ul>
+      <li><strong>Автор:</strong> <a id="author-link" href="#" target="_blank">Не найден</a></li>
+      <li><strong>Просмотры:</strong> <span id="views">-</span></li>
+      <li><strong>В избранном:</strong> <span id="stars">-</span></li>
+      <li><strong>Дата публикации:</strong> <span id="date">-</span></li>
+      <li><strong>Исполнитель:</strong> <span id="artist">-</span></li>
+      <li><strong>Песня:</strong> <span id="song-title">-</span></li>
+      <li><strong>Аккорды:</strong></li>
+      <div style="display: flex; flex-wrap: wrap;" id="chords-list"></div>
+    </ul>
+  </div>
+</div>
+    <script type="text/javascript" module src="script.js"></script>
+</body>
+</html>
+------------------------------
+📄 End: index.html
+==============================
